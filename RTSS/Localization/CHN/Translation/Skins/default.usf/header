@@ -1,0 +1,6 @@
+#src Metro %PRODUCTNAME% skin
+#dst %PRODUCTNAME% Metro Æ¤·ô
+#end
+#src Default %PRODUCTNAME% skin
+#dst %PRODUCTNAME% Ä¬ÈÏÆ¤·ô
+#end

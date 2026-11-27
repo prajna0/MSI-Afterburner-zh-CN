@@ -392,10 +392,10 @@
 #dst 帧率 最大值
 #end
 #src Framerate 1% Low
-#dst 帧率 1% 最低
+#dst 1% 低帧率
 #end
 #src Framerate 0.1% Low
-#dst 帧率 0.1% 最低
+#dst 0.1% 低帧率
 #end
 #src CPU power
 #dst CPU 功耗
@@ -473,7 +473,6 @@
 #src %+dMHz
 #dst %+dMHz
 #end
-#end
 
 #src Reference temperature : %d 癈
 #dst 参考温度:%d °C
@@ -485,4 +484,8 @@
 
 #src Voltage to
 #dst 电压到
+#end
+
+#src Reference temperature : %d °C
+#dst 参考温度：%d °C
 #end

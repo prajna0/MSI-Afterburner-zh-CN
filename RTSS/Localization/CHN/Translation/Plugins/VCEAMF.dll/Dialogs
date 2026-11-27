@@ -1,0 +1,9 @@
+#src Memory type
+#dst 内存类型
+#end
+#src host
+#dst 主机
+#end
+#src AMD AMF VCE encoder
+#dst AMD AMF VCE 编码器
+#end

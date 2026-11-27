@@ -575,9 +575,6 @@
 #dst 版本
 #end
 
-#src The changes you've made will be applied after restarting MSI Afterburner.  Do you want to restart it now?
-#dst 您所做的更改将在重启 MSI Afterburner 后生效。是否立即重启?
-#end
 
 #src MPNG compression
 #dst MPNG 压缩
@@ -1068,4 +1065,12 @@
 #end
 #src The changes you've made will be applied after restarting MSI Afterburner.  Do you want to restart it now?
 #dst 您所做的更改将在重启 MSI Afterburner 后应用。是否要立即重启?
+#end
+
+#src Cannot find any hardware monitoring log sessions in this file! The file is not hardware monitoring log file or it is corrupted.
+#dst 文件中找不到任何硬件监控记录。文件格式不正确或文件已损坏。
+#end
+
+#src This application is designed to use %s.sys driver v%d.%d. Different version of RTdriver is installed and in use now. It is strongly recommended to close all applications using this driver and restart this application to allow correct driver version usage, otherwise it may function improperly.
+#dst 本程序需要 %s.sys 驱动程序 v%d.%d。当前正在使用其他版本的 RTdriver。请关闭所有使用该驱动程序的应用程序，再重启本程序以加载正确版本。继续使用当前版本可能导致功能异常。
 #end

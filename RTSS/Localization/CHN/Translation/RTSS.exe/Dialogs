@@ -1,0 +1,262 @@
+#src General properties
+#dst 常规选项
+#end
+#src Start minimized
+#dst 启动时最小化
+#end
+#src Hide pre-created profiles
+#dst 隐藏预先创建的配置文件
+#end
+#src Update checking properties
+#dst 更新检测
+#end
+#src Check for available product updates
+#dst 检查可用的软件更新
+#end
+#src Check for available product beta versions
+#dst 检查可用的软件测试版本
+#end
+#src never
+#dst 从不
+#end
+#src on startup
+#dst 每次启动时
+#end
+#src on startup daily
+#dst 程序启动时 一天一次
+#end
+#src on startup weekly
+#dst 程序启动时 一周一次
+#end
+#src on startup monthly
+#dst 程序启动时 一月一次
+#end
+#src Check now
+#dst 立即检查
+#end
+#src FCAT properties
+#dst FCAT 选项
+#end
+#src Enable frame color indicator
+#dst 启用帧刷新颜色指示器
+#end
+#src color sequence
+#dst 色彩顺序
+#end
+#src 2 bars
+#dst 2 列
+#end
+#src 3 bars
+#dst 3 列
+#end
+#src 4 bars
+#dst 4 列
+#end
+#src moving bar
+#dst 移动列
+#end
+#src latency marker
+#dst 延迟标记
+#end
+#src Statistics properties
+#dst 统计选项
+#end
+#src Framerate averaging interval (in milliseconds)
+#dst 平均帧率计算间隔（以毫秒为单位）
+#end
+#src Refresh period (in milliseconds)
+#dst 刷新周期（以毫秒为单位）
+#end
+#src Display integer framerate
+#dst 显示整数帧率（关闭显示小数点后1位）
+#end
+#src Display maximum frametime
+#dst 显示帧生成时间最大值
+#end
+#src Enable frametime history overlay
+#dst 启用帧生成时间历史图表显示
+#end
+#src Frametime calculation point
+#dst 帧时间采样点
+#end
+#src frame start
+#dst 帧开始
+#end
+#src frame presentation
+#dst 帧展示
+#end
+#src Peak framerate calculation mode
+#dst 峰值帧率计算模式
+#end
+#src average
+#dst 平均值
+#end
+#src instantaneous
+#dst 瞬时
+#end
+#src Percentile calculation mode
+#dst 百分位计算模式
+#end
+#src integral
+#dst 积分
+#end
+#src linear
+#dst 线性
+#end
+#src Percentile buffer
+#dst 百分位缓冲区
+#end
+#src unlimited
+#dst 不限
+#end
+#src ring
+#dst 环形
+#end
+#src Compatibility properties
+#dst 兼容性
+#end
+#src Enable dedicated encoder server service
+#dst 启用专用编码服务器服务
+#end
+#src 32-bit
+#dst 32-位
+#end
+#src 64-bit
+#dst 64-位
+#end
+#src Enable 64-bit applications support service
+#dst 启用64-位应用程序支持服务
+#end
+#src Enable benchmark mode
+#dst 启用基准模式
+#end
+#src Enable framerate limiter
+#dst 启用帧率限制器
+#end
+#src front edge sync
+#dst 前端同步
+#end
+#src back edge sync
+#dst 后端同步
+#end
+#src Enable passive waiting
+#dst 启用被动等待
+#end
+#src Injection properties
+#dst 注入
+#end
+#src Use Microsoft Detours API hooking
+#dst 使用 Microsoft Detours 挂钩 API
+#end
+#src Injection delay (in milliseconds)
+#dst 注入延迟（以毫秒为单位）
+#end
+#src Reset cache
+#dst 重置缓存
+#dlu -100
+#end
+#src Inject NVIDIA Reflex latency markers
+#dst 注入 NVIDIA Reflex 延迟标记
+#end
+#src Inject NVIDIA Reflex sleep call
+#dst 注入 NVIDIA Reflex 休眠调用
+#end
+#src before frame presentation
+#dst 提交帧之前
+#end
+#src after frame presentation
+#dst 提交帧之后
+#end
+#src Plugins
+#dst 插件
+#end
+#src Active plugin modules
+#dst 活动插件模块
+#end
+#src User Interface
+#dst 用户界面
+#end
+#src Language
+#dst 语言
+#end
+#src English
+#dst 英文
+#end
+#src User interface help system properties
+#dst 用户界面帮助系统
+#end
+#src Show user interface tooltips
+#dst 显示用户界面工具提示
+#end
+#src User interface skinning properties
+#dst 用户界面皮肤选项
+#end
+#src Skin composition mode
+#dst 皮肤合成模式
+#end
+#src traditional
+#dst 传统
+#end
+#src layered with colorkey
+#dst 色键分层
+#end
+#src layered with alpha
+#dst 透明度分层
+#end
+#src Skin transparency
+#dst 皮肤透明度
+#end
+#src Transparent
+#dst 透明
+#end
+#src Opaque
+#dst 不透明
+#end
+#src Cancel
+#dst 取消
+#end
+#src Font
+#dst 字体
+#end
+#src &Font:
+#dst 字体(&F)：
+#end
+#src Font st&yle:
+#dst 字形(&Y)：
+#end
+#src &Size:
+#dst 大小(&S)：
+#end
+#src OK
+#dst 确定
+#end
+#src &Apply
+#dst 应用(&A)
+#end
+#src &Help
+#dst 帮助(&H)
+#end
+#src Effects
+#dst 效果
+#end
+#src Stri&keout
+#dst 删除线(&K)
+#end
+#src &Underline
+#dst 下划线(&U)
+#end
+#src &Color:
+#dst 颜色(&C)：
+#end
+#src Sample
+#dst 示例
+#end
+#src Sc&ript:
+#dst 字符集(&R)：
+#end
+#src Color
+#dst 颜色
+#end
+#src Opacity
+#dst 不透明度
+#end

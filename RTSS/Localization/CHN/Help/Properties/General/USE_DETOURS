@@ -1,0 +1,7 @@
+使用 Microsoft Detours 挂钩 API
+%PRODUCTNAME% 默认使用自带的 API 挂钩机制，并通过安全的链式挂钩与其他叠加层等程序共用同一 API。
+某些第三方叠加层、录制或直播工具使用 Microsoft Detours。其挂钩机制可能与 RTSS 默认的实现冲突。遇到此类兼容性问题时，可启用此选项，让 %PRODUCTNAME% 改用 Microsoft Detours。
+
+提示：
+- 此设置仅用于当前选择的应用程序配置。
+- 可在高级属性的「用户界面」选项卡中关闭界面工具提示。
