@@ -2,13 +2,13 @@
 
 ## 项目简介
 
-本项目通过 RTMUI 为 MSI Afterburner 和 RivaTuner Statistics Server（RTSS）提供简体中文界面、菜单、提示和帮助。RTSS 还附带中文版默认皮肤。
+本项目通过 RTMUI 为 MSI Afterburner 和 RivaTuner Statistics Server（RTSS）提供简体中文界面、菜单、提示和帮助。两款软件均附带独立的中文版皮肤。
 
 ## 适配软件版本
 
 | 软件 | 已核对的正式版 | 已核对的测试版 | 本地化文件 |
 |---|---|---|---|
-| MSI Afterburner | 4.6.6（16757） | 4.6.7 Beta 2（16935）、Beta 4（17439） | `Localization/CHN` |
+| MSI Afterburner | 4.6.6（16757） | 4.6.7 Beta 2（16935）、Beta 4（17439） | `Localization/CHN`、`Skins/MSIWin11Dark-zh-CN.usf` |
 | RTSS | 7.3.7（28314） | 7.3.8 Beta 1（28315） | `RTSS/Localization/CHN`、`RTSS/Skins/Default4Chinese.usf` |
 
 本地化包标识为 `CHN`，代码页为 936（GBK）。版本核对以安装包里的语言资源、可本地化界面和皮肤文件为准。
@@ -103,6 +103,13 @@ Localization\CHN\
 3. 切换到 `<User interface>`(用户界面)选项卡
 4. 在 `Language`(语言)下拉框中选择 `Simplified Chinese`
 5. 点击 `Apply`(应用)并重启程序
+
+### 安装 Afterburner 中文皮肤
+
+1. 退出 MSI Afterburner，把仓库里的 `Skins\MSIWin11Dark-zh-CN.usf` 复制到 MSI Afterburner 安装目录的 `Skins`。
+2. 启动 MSI Afterburner，打开「设置」→「用户界面」，在皮肤列表中选择「MSI Win11 深色（简体中文）」并应用。
+
+中文版基于 Drerex Design 制作的默认 Win11 深色皮肤，翻译了主界面、按钮状态、显卡选择面板和多路电压面板。属性和工具提示的翻译由 `Localization\CHN` 提供。
 
 ### 安装 RTSS 语言包和皮肤
 

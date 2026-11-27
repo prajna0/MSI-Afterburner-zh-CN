@@ -10,6 +10,11 @@
 !/Localization/CHN/
 !/Localization/CHN/**
 
+# 保留 Afterburner 的简体中文皮肤
+!/Skins/
+/Skins/*
+!/Skins/MSIWin11Dark-zh-CN.usf
+
 # 保留 RTSS 语言包和简体中文皮肤
 !/RTSS/
 /RTSS/*
