@@ -1,22 +1,20 @@
-# MSI Afterburner 简体中文本地化包
+# MSI Afterburner 与 RTSS 简体中文本地化包
 
 ## 项目简介
 
-本项目为 MSI Afterburner 提供简体中文界面翻译,基于 RTMUI(RivaTuner 用户可扩展本地化引擎)实现,无需修改应用程序本体即可完成界面、菜单、提示与帮助文档的本地化。
+本项目通过 RTMUI 为 MSI Afterburner 和 RivaTuner Statistics Server（RTSS）提供简体中文界面、菜单、提示和帮助。RTSS 还附带中文版默认皮肤。
 
 ## 适配软件版本
 
-| 项目 | 信息 |
-|---|---|
-| 软件名称 | MSI Afterburner |
-| 软件版本 | 4.6.7.17439 |
-| 文件版本 | 4.6.7.17439 |
-| 版权年份 | © 2009-2025 |
-| 本地化包标识 | CHN |
-| 显示语言名 | Simplified Chinese |
-| 代码页 | 936(GBK) |
+| 软件 | 已核对的正式版 | 已核对的测试版 | 本地化文件 |
+|---|---|---|---|
+| MSI Afterburner | 4.6.6（16757） | 4.6.7 Beta 2（16935）、Beta 4（17439） | `Localization/CHN` |
+| RTSS | 7.3.7（28314） | 7.3.8 Beta 1（28315） | `RTSS/Localization/CHN`、`RTSS/Skins/Default4Chinese.usf` |
 
-> 本地化包仅适配上述版本的软件。若软件升级,请按 `SDK\Doc\Localization reference.md` 第 6 节的方法重新比对并更新。
+本地化包标识为 `CHN`，代码页为 936（GBK）。版本核对以安装包里的语言资源、可本地化界面和皮肤文件为准。
+
+- MSI Afterburner [MSI 下载页](https://www.msi.com/Landing/afterburner) · [开发者发布的 Beta 4](https://forums.guru3d.com/threads/msi-afterburner-v4-6-7-beta-1-is-approaching.458132/post-6453140)
+- RTSS [Guru3D 正式版](https://www.guru3d.com/download/rtss-rivatuner-statistics-server-download/) · [开发者发布的 7.3.8 Beta 1](https://forums.guru3d.com/threads/msi-afterburner-v4-6-7-beta-1-is-approaching.458132/post-6452793)
 
 ## 项目结构
 
@@ -24,13 +22,13 @@
 Localization\CHN\
 ├── Description                      本地化包描述文件(语言名/图标/创建者)
 ├── zhcn.ico                         语言图标
-├── README.md                        本说明文档
-├── Help\                            上下文帮助文件(234 个)
-│   ├── BUTTON_*.txt                 主界面按钮提示(20 个)
-│   ├── SLIDER_*.txt / TEXT_*.txt    滑块与文本提示(15 个)
+├── Help\                            上下文帮助文件
+│   ├── BUTTON_*                     主界面按钮提示
+│   ├── SLIDER_* / TEXT_*           滑块与文本提示
+│   ├── VOLTAGE_FREQUENCY_EDITOR    电压／频率曲线编辑器帮助
 │   ├── PLACEHOLDER_MON_WND          监控窗口占位说明
 │   ├── Info\                        信息窗口帮助(5 个)
-│   ├── Plugins\Monitoring\          监控插件帮助(8 个)
+│   ├── Plugins\Monitoring\          监控插件帮助
 │   └── Properties\                  高级属性帮助
 │       ├── Benchmark\               基准测试(6 个)
 │       ├── Fan\                     风扇控制(8 个)
@@ -68,7 +66,7 @@ Localization\CHN\
 ### 编码与行结束符
 
 - 所有文本文件统一使用 **GBK(代码页 936)** 编码
-- 行结束符统一为 **CRLF**(`\r\n`)
+- RTSS 本地化文件使用 **CRLF**（`\r\n`）
 - 无 BOM(字节顺序标记)
 - 温度单位 `°C` 中的 `°` 符号使用 GBK 编码字节 `0xA1E3`
 
@@ -96,7 +94,7 @@ Localization\CHN\
 
 ### 安装
 
-本本地化包已位于 `Localization\CHN\` 目录,无需额外安装。
+退出 MSI Afterburner，将仓库里的 `Localization\CHN` 复制到 MSI Afterburner 安装目录下的 `Localization`。如果已有 `CHN`，可先将旧文件夹备份到安装目录之外。
 
 ### 选择简体中文
 
@@ -105,6 +103,14 @@ Localization\CHN\
 3. 切换到 `<User interface>`(用户界面)选项卡
 4. 在 `Language`(语言)下拉框中选择 `Simplified Chinese`
 5. 点击 `Apply`(应用)并重启程序
+
+### 安装 RTSS 语言包和皮肤
+
+1. 从系统托盘退出 RTSS，打开 RTSS 安装目录。常见位置是 `C:\Program Files (x86)\RivaTuner Statistics Server`。
+2. 把仓库中 `RTSS\Localization\CHN` 复制到安装目录的 `Localization`，把 `RTSS\Skins\Default4Chinese.usf` 复制到安装目录的 `Skins`。如果以前装过 RTSS 中文包，先将旧的 `Localization\CH` 或 `Localization\CHN` 备份到安装目录之外。
+3. 启动 RTSS，打开 `Setup`（设置）→「用户界面」，选择 `Simplified Chinese`（简体中文），再选择「RivaTunerStatisticsServer 中文版默认皮肤」。应用后重启 RTSS。
+
+RTSS 语言包覆盖属性、工具提示、叠加层编辑器、快捷键和编码器插件。新版皮肤加入 OSD 的上中、下中、左中、右中四个定位按钮，并将开关状态改为「开／关」。Metro 皮肤由 00pontiac 制作，中文皮肤由 OoOmn 制作。
 
 ## 验证方法
 

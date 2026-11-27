@@ -706,3 +706,31 @@
 #src Overclocking is disabled due to debug mod
 #dst 由于调试模式,超频已被禁用
 #end
+
+#src Profiles tray menu properties
+#dst 托盘菜单中的配置文件
+#end
+
+#src Warning: please refer to the context help prior to altering these settings!
+#dst 更改这些设置之前，请先查看相应的帮助提示。
+#end
+
+#src Show profiles in separate submenu in tray menu
+#dst 在托盘子菜单中显示配置文件
+#end
+
+#src About product
+#dst 关于本软件
+#end
+
+#src Opacity
+#dst 不透明度
+#end
+
+#src Maximum limit
+#dst 上限
+#end
+
+#src Minimum limit
+#dst 下限
+#end

@@ -1,9 +1,9 @@
 #src HDD temperature
-#dst ç¡¬ç›˜æ¸©åº¦
+#dst Ó²ÅÌÎÂ¶È
 #end
 #src HDD%d temperature
-#dst ç¡¬ç›˜ %d æ¸©åº¦
+#dst Ó²ÅÌ %d ÎÂ¶È
 #end
 #src HDD%d temperature 2
-#dst ç¡¬ç›˜ %d æ¸©åº¦ 2
+#dst Ó²ÅÌ %d ÎÂ¶È 2
 #end

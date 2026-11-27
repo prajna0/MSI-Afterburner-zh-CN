@@ -10,6 +10,17 @@
 !/Localization/CHN/
 !/Localization/CHN/**
 
+# 保留 RTSS 语言包和简体中文皮肤
+!/RTSS/
+/RTSS/*
+!/RTSS/Localization/
+/RTSS/Localization/*
+!/RTSS/Localization/CHN/
+!/RTSS/Localization/CHN/**
+!/RTSS/Skins/
+/RTSS/Skins/*
+!/RTSS/Skins/Default4Chinese.usf
+
 # 保留本地化参考文档（SDK/Doc/Localization reference.md）
 !/SDK/
 /SDK/*
