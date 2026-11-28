@@ -92,6 +92,20 @@ Localization\CHN\
 
 ## 安装与使用
 
+### 一键安装
+
+1. 从系统托盘退出 MSI Afterburner 和 RTSS 中准备汉化的软件。
+2. 双击 `Afterburner-RTSS-zh-CN-Setup.exe`。确认自动识别出的目录，也可以通过「浏览」指定便携版目录。
+3. 勾选要安装的软件并点击「安装汉化」。再次启动软件即可使用简体中文和中文皮肤。
+
+安装器内置两套语言包和皮肤，可以离线运行。它通过 `Profiles\MSIAfterburner.cfg` 和 `Profiles\Config` 设置语言和皮肤，原有同名文件保存在各安装目录的 `ZH-CN-Backup` 中。已装好的相同版本会自动跳过。写入受保护的目录时，Windows 会请求管理员授权。
+
+在 Windows 上可以构建安装器。在仓库根目录运行以下命令，生成的 EXE 位于 `Installer\dist`。
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Installer\Build.ps1
+```
+
 ### 安装
 
 退出 MSI Afterburner，将仓库里的 `Localization\CHN` 复制到 MSI Afterburner 安装目录下的 `Localization`。如果已有 `CHN`，可先将旧文件夹备份到安装目录之外。
@@ -125,7 +139,7 @@ RTSS 语言包覆盖属性、工具提示、叠加层编辑器、快捷键和编
 
 按 `SDK\Doc\Localization reference.md` 第 6 节,使用比较模式验证本地化包完整性:
 
-1. 在 `MSIAfterburner.cfg` 的 `[Settings]` 节中添加 `Language = CHN`
+1. 在 `Profiles\MSIAfterburner.cfg` 的 `[Settings]` 节中设置 `Language = CHN`
 2. 在程序根目录执行:
    ```
    MSIAfterburner.exe /CL RUS
