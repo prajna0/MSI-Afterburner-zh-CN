@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
@@ -220,6 +221,9 @@ namespace ZhCnInstaller
         private const string Language = @"Localization\CHN";
         private const string BackupFolder = "ZH-CN-Backup";
 
+        [DllImport("kernel32.dll")]
+        private static extern uint GetACP();
+
         internal static string Install(IList<Target> targets)
         {
             if (targets.Count == 0 || targets.Select(p => p.Root).Distinct(StringComparer.OrdinalIgnoreCase).Count() != targets.Count)
@@ -228,6 +232,8 @@ namespace ZhCnInstaller
             var locks = new List<FileStream>();
             var plans = new List<Plan>();
             var applied = new List<Replacement>();
+            uint codePage = GetACP();
+            bool activate = codePage == 936;
             try
             {
                 foreach (var t in targets.OrderBy(x => x.Root, StringComparer.OrdinalIgnoreCase))
@@ -244,7 +250,7 @@ namespace ZhCnInstaller
                     {
                         var plan = new Plan(target);
                         plans.Add(plan);
-                        plan.Prepare(zip);
+                        plan.Prepare(zip, activate);
                     }
                 }
 
@@ -256,7 +262,11 @@ namespace ZhCnInstaller
                     item.Apply();
                 }
 
-                return String.Join("\n\n", plans.Select(p => p.Summary()));
+                string summary = String.Join("\n\n", plans.Select(p => p.Summary(activate)));
+                if (activate) return summary;
+                return summary + "\n\n当前 Windows 非 Unicode 程序的代码页为 " + codePage +
+                    "。已保留原有语言和皮肤设置。要自动启用汉化，请将系统区域设置改为「中文（简体，中国）」" +
+                    "并关闭「使用 Unicode UTF-8 提供全球语言支持」。重启后再运行安装器。";
             }
             catch (Exception failure)
             {
@@ -301,10 +311,12 @@ namespace ZhCnInstaller
                 stage = Path.Combine(backup, ".staging");
             }
 
-            internal void Prepare(ZipArchive zip)
+            internal void Prepare(ZipArchive zip, bool activate)
             {
                 string skin = @"Skins\" + target.Product.Skin;
-                foreach (var path in new[] { Language, skin, target.Product.Config })
+                var outputs = new List<string> { Language, skin };
+                if (activate) outputs.Add(target.Product.Config);
+                foreach (var path in outputs)
                 {
                     CheckForLink(Path.Combine(target.Root, Path.GetDirectoryName(path)));
                     CheckForLink(Path.Combine(target.Root, path));
@@ -329,13 +341,16 @@ namespace ZhCnInstaller
                 if (!File.Exists(Path.Combine(stage, Language, "Description")) || !File.Exists(Path.Combine(stage, skin)))
                     throw new InvalidDataException("安装包缺少 " + target.Product.Name + " 的语言包或皮肤。");
 
-                var config = Path.Combine(target.Root, target.Product.Config);
-                var stagedConfig = Path.Combine(stage, target.Product.Config);
-                Directory.CreateDirectory(Path.GetDirectoryName(stagedConfig));
-                File.WriteAllBytes(stagedConfig, SettingsFile.SelectChinese(
-                    File.Exists(config) ? File.ReadAllBytes(config) : new byte[0], target.Product.Skin));
+                if (activate)
+                {
+                    var config = Path.Combine(target.Root, target.Product.Config);
+                    var stagedConfig = Path.Combine(stage, target.Product.Config);
+                    Directory.CreateDirectory(Path.GetDirectoryName(stagedConfig));
+                    File.WriteAllBytes(stagedConfig, SettingsFile.SelectChinese(
+                        File.Exists(config) ? File.ReadAllBytes(config) : new byte[0], target.Product.Skin));
+                }
 
-                foreach (var rel in new[] { Language, skin, target.Product.Config })
+                foreach (var rel in outputs)
                 {
                     var item = new Replacement(Path.Combine(target.Root, rel),
                         Path.Combine(stage, rel), Path.Combine(backup, rel), rel == Language);
@@ -343,10 +358,12 @@ namespace ZhCnInstaller
                 }
             }
 
-            internal string Summary()
+            internal string Summary(bool activate)
             {
                 if (Changes.Count == 0) return target.Product.Name + " 已安装此版本的汉化。";
-                var message = target.Product.Name + " 已启用简体中文和中文皮肤。";
+                var message = target.Product.Name + (activate
+                    ? " 已启用简体中文和中文皮肤。"
+                    : " 的简体中文语言包和中文皮肤已安装。");
                 return Changes.Any(item => item.HasBackup) ? message + "\n备份 " + backup : message;
             }
 

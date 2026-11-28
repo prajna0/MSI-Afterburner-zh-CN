@@ -210,13 +210,13 @@ namespace ZhCnInstaller
                 if (summary != null)
                 {
                     MessageBox.Show(this, summary, Program.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    status.Text = "安装完成。重新打开对应软件即可使用。";
+                    status.Text = "安装完成。";
                 }
                 else
                 {
                     status.Text = "写入安装目录需要管理员权限，请确认 Windows 提示。";
                     int code = await Task.Run(() => Program.InstallElevated(targets));
-                    status.Text = code == 0 ? "安装完成。重新打开对应软件即可使用。" : "安装未完成，可根据提示重试。";
+                    status.Text = code == 0 ? "安装完成。" : "安装未完成，可根据提示重试。";
                 }
             }
             catch (Exception ex)
