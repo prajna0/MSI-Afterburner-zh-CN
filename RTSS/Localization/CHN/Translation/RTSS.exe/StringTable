@@ -104,7 +104,7 @@
 #dst 原因: %s, 错误代码 %d
 #end
 #src Last checked on %A, %B %d, %Y, %H:%M:%S
-#dst 上次检查于 %A, %B %d, %Y, %H:%M:%S
+#dst 上次检查于 %Y-%m-%d %H:%M:%S
 #end
 #src Reboot is required to finalize %PRODUCTNAME% installation!
 #dst 需要重新启动才能完成 %PRODUCTNAME% 的安装!
