@@ -100,6 +100,10 @@ Localization\CHN\
 
 安装器内置两套语言包和皮肤，可以离线运行。它通过 `Profiles\MSIAfterburner.cfg` 和 `Profiles\Config` 设置语言和皮肤，原有同名文件保存在各安装目录的 `ZH-CN-Backup` 中。已装好的相同版本会自动跳过。写入受保护的目录时，Windows 会请求管理员授权。
 
+自动切换语言和皮肤需要 Windows 的非 Unicode 程序代码页为 936。使用其他代码页时，安装器会安装语言包和皮肤并保留原有选项。要自动启用，可在 Windows 的「区域」→「管理」中将系统区域设置改为「中文（简体，中国）」，关闭「使用 Unicode UTF-8 提供全球语言支持」，重启后再运行安装器。
+
+配置项的行尾备注会保留在单独一行。带 BOM 的 UTF-8 和 UTF-16 BE 配置会转换为 Windows 可读取的 UTF-16 LE。备份保留原配置的字节。
+
 在 Windows 上可以构建安装器。在仓库根目录运行以下命令，生成的 EXE 位于 `Installer\dist`。
 
 ```powershell
@@ -146,7 +150,7 @@ RTSS 语言包覆盖属性、工具提示、叠加层编辑器、快捷键和编
    ```
 3. 程序将生成 `Localization\LocalizationDifferences.log` 差异报告
 4. 分析报告中的差异项并处理
-5. 验证完成后恢复配置文件(移除 `Language = CHN` 行)
+5. 验证完成后恢复验证前的配置文件。
 
 ### 编码验证
 
@@ -197,7 +201,7 @@ $files = Get-ChildItem -Path $chnRoot -Recurse -File
 
 - **来自 `RTHAL.dll` ANSI 的 `°C`**:`#src` 写 `癈`(GBK 字节 `B0 43`),`#dst` 写 `°C`(GBK 字节 `A1 E3 43`)
 - **来自 `MSIAfterburner.exe` UTF-16 的 `°C`**:`#src` 写 `°C`(GBK 字节 `A1 E3 43`),`#dst` 写 `°C`
-- **不可混用**:把 ANSI 来源的 `°C` 误写为 `°C` 会导致 `#src` 无法匹配,翻译失败
+- 同时兼容两种来源的文本时，分别保留 `°C` 和 `癈` 两个 `#src`，共用相同的译文。
 
 ### 判断 °C 来源的方法
 
@@ -222,7 +226,7 @@ $a1 = $cp1252.GetBytes($target)
 
 ### CHN 翻译包中所有 °C 条目清单
 
-> 2026-07-13 核验完成,共 7 处
+> 下表列出主要来源。`Temperature, °C` 和 `Temperature hysteresis (in °C)` 在 `Dialogs` 中同时保留两种源文本。
 
 **已改为 `癈`(匹配 RTHAL.dll ANSI):**
 
