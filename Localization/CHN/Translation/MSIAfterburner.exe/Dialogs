@@ -90,6 +90,9 @@
 #src Temperature, 癈
 #dst 温度,°C
 #end
+#src Temperature, °C
+#dst 温度,°C
+#end
 #src Fan speed, %
 #dst 风扇转速,%
 #end
@@ -106,6 +109,9 @@
 #dst 风扇转速更新周期(毫秒)
 #end
 #src Temperature hysteresis (in °C)
+#dst 温度迟滞(°C)
+#end
+#src Temperature hysteresis (in 癈)
 #dst 温度迟滞(°C)
 #end
 #src Force fan speed update on each period

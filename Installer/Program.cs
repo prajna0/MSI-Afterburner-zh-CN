@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 [assembly: System.Reflection.AssemblyTitle("Afterburner / RTSS 简体中文安装器")]
-[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
-[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyFileVersion("1.0.1.0")]
+[assembly: System.Reflection.AssemblyVersion("1.0.1.0")]
 
 namespace ZhCnInstaller
 {

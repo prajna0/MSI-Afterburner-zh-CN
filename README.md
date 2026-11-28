@@ -100,6 +100,8 @@ Localization\CHN\
 
 安装器内置两套语言包和皮肤，可以离线运行。它通过 `Profiles\MSIAfterburner.cfg` 和 `Profiles\Config` 设置语言和皮肤，原有同名文件保存在各安装目录的 `ZH-CN-Backup` 中。已装好的相同版本会自动跳过。写入受保护的目录时，Windows 会请求管理员授权。
 
+配置项的行尾备注会保留在单独一行。带 BOM 的 UTF-8 和 UTF-16 BE 配置会转换为 Windows 可读取的 UTF-16 LE。备份保留原配置的字节。
+
 在 Windows 上可以构建安装器。在仓库根目录运行以下命令，生成的 EXE 位于 `Installer\dist`。
 
 ```powershell

@@ -36,19 +36,24 @@ namespace ZhCnInstaller
 
         internal string FindDirectory()
         {
-            foreach (var p in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Executable)))
+            var running = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Executable));
+            try
             {
-                using (p)
+                foreach (var p in running)
                 {
                     try
                     {
-                        var directory = DirectoryOfExecutable(p.MainModule.FileName);
-                        if (directory != null) return directory;
+                        var directory = Path.GetDirectoryName(p.MainModule.FileName);
+                        if (ExistsIn(directory)) return directory;
                     }
                     catch (System.ComponentModel.Win32Exception) { }
                     catch (InvalidOperationException) { }
                     catch (NotSupportedException) { }
                 }
+            }
+            finally
+            {
+                foreach (var p in running) p.Dispose();
             }
 
             foreach (var hive in new[] { RegistryHive.LocalMachine, RegistryHive.CurrentUser })
@@ -61,10 +66,12 @@ namespace ZhCnInstaller
                     using (var uninstall = root.OpenSubKey(
                         @"Software\Microsoft\Windows\CurrentVersion\Uninstall\" + Uninstall))
                     {
+                        var installPath = Value(setup, "InstallPath");
                         var directories = new[]
                         {
                             Value(setup, "InstallDir"),
-                            DirectoryOfExecutable(Value(setup, "InstallPath")),
+                            installPath,
+                            DirectoryOfExecutable(installPath),
                             Value(uninstall, "InstallLocation"),
                             DirectoryOfExecutable(Value(uninstall, "UninstallString"))
                         };
@@ -89,19 +96,37 @@ namespace ZhCnInstaller
             return key == null ? null : key.GetValue(name) as string;
         }
 
-        private static string DirectoryOfExecutable(string value)
+        private string DirectoryOfExecutable(string value)
         {
             if (String.IsNullOrWhiteSpace(value)) return null;
-            value = value.Trim().TrimStart('"');
-            int end = value.IndexOf(".exe", StringComparison.OrdinalIgnoreCase);
-            if (end < 0) return null;
-            try { return Path.GetDirectoryName(value.Substring(0, end + 4)); }
-            catch (ArgumentException) { return null; }
+            value = value.Trim();
+            if (value[0] == '"')
+            {
+                int quote = value.IndexOf('"', 1);
+                if (quote < 0) return null;
+                value = value.Substring(1, quote - 1);
+            }
+
+            // An install folder can contain ".exe" in its name. Check complete
+            // executable-path candidates against the actual installed files.
+            var extensions = Regex.Matches(value, @"\.exe(?=\s|$)", RegexOptions.IgnoreCase);
+            foreach (Match match in extensions.Cast<Match>().Reverse())
+            {
+                try
+                {
+                    var directory = Path.GetDirectoryName(value.Substring(0, match.Index + match.Length));
+                    if (ExistsIn(directory)) return directory;
+                }
+                catch (ArgumentException) { }
+            }
+            return null;
         }
 
         internal bool ExistsIn(string folder)
         {
-            return !String.IsNullOrWhiteSpace(folder) && File.Exists(Path.Combine(folder.Trim('"'), Executable));
+            if (String.IsNullOrWhiteSpace(folder)) return false;
+            try { return File.Exists(Path.Combine(folder.Trim().Trim('"'), Executable)); }
+            catch (ArgumentException) { return false; }
         }
 
         internal void RequireClosed()
@@ -141,13 +166,14 @@ namespace ZhCnInstaller
             @"(?im)^[ \t]*\[Settings\][^\r\n]*(?:\r?\n|$)");
         private static readonly Regex Section = new Regex(@"(?m)^[ \t]*\[[^]\r\n]+\]");
         private static readonly Encoding AnsiBytes = Encoding.GetEncoding(28591);
+        private static readonly Encoding WindowsUnicode = new UnicodeEncoding(false, true, true);
 
         internal static byte[] SelectChinese(byte[] input, string skin)
         {
             Encoding encoding = AnsiBytes;
             byte[] preamble = new byte[0];
             foreach (var candidate in new Encoding[]
-                { new UTF8Encoding(true, true), new UnicodeEncoding(false, true, true), new UnicodeEncoding(true, true, true) })
+                { new UTF8Encoding(true, true), WindowsUnicode, new UnicodeEncoding(true, true, true) })
             {
                 byte[] prefix = candidate.GetPreamble();
                 if (!input.Take(prefix.Length).SequenceEqual(prefix)) continue;
@@ -172,13 +198,18 @@ namespace ZhCnInstaller
 
             block = SetKey(block, "Language", "CHN", newline);
             block = SetKey(block, "Skin", skin, newline);
-            return preamble.Concat(encoding.GetBytes(heading + block + content.Substring(end))).ToArray();
+            // The applications use the Windows profile APIs, which accept ANSI or
+            // BOM-marked UTF-16 LE. Preserve the text of other recognized encodings.
+            var output = encoding == AnsiBytes ? AnsiBytes : WindowsUnicode;
+            return output.GetPreamble().Concat(output.GetBytes(heading + block + content.Substring(end))).ToArray();
         }
 
         private static string SetKey(string section, string key, string value, string newline)
         {
-            var expression = new Regex(@"(?im)^([ \t]*" + key + @"[ \t]*=[ \t]*)[^;\r\n]*");
-            if (expression.IsMatch(section)) return expression.Replace(section, match => match.Groups[1].Value + value);
+            var expression = new Regex(@"(?im)^([ \t]*" + key + @"[ \t]*=[ \t]*)[^;\r\n]*(;[^\r\n]*)?");
+            if (expression.IsMatch(section))
+                return expression.Replace(section, match =>
+                    (match.Groups[2].Success ? match.Groups[2].Value + newline : "") + match.Groups[1].Value + value);
             if (section.Length > 0 && !section.EndsWith("\n", StringComparison.Ordinal)) section += newline;
             return section + key + " = " + value + newline;
         }
@@ -390,6 +421,23 @@ namespace ZhCnInstaller
 
             internal void Apply()
             {
+                if (!folder && File.Exists(live))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(Backup));
+                    try
+                    {
+                        // ReplaceFile preserves the destination's ACL and metadata.
+                        File.Replace(staged, live, Backup);
+                        placed = true;
+                    }
+                    finally
+                    {
+                        // A failed replacement can still have renamed the original.
+                        HasBackup = File.Exists(Backup);
+                    }
+                    return;
+                }
+
                 if (File.Exists(live) || Directory.Exists(live))
                 {
                     Move(live, Backup);
