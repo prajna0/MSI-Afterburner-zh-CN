@@ -3,6 +3,15 @@
 
 # 保留 .gitignore 自身
 !.gitignore
+!.gitattributes
+
+# 保留汉化安装器源码
+!/Installer/
+/Installer/*
+!/Installer/Build.ps1
+!/Installer/Installation.cs
+!/Installer/Program.cs
+!/Installer/app.manifest
 
 # 仅保留简体中文翻译包（Localization/CHN）
 !/Localization/
