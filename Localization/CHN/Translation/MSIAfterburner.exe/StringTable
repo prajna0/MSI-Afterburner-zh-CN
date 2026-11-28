@@ -436,7 +436,7 @@
 #end
 
 #src Last checked on %A, %B %d, %Y, %H:%M:%S
-#dst 最后检查于 %A,%B %d,%Y,%H:%M:%S
+#dst 最后检查于 %Y-%m-%d %H:%M:%S
 #end
 
 #src Warning! This version expires on %A, %B %d, %Y, %H:%M:%S!
